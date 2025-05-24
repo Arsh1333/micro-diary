@@ -1,0 +1,15 @@
+# Node modules
+**/node_modules
+
+# Environment files
+**/.env
+
+# Logs
+*.log
+
+# IDE/editor settings
+.vscode/
+.DS_Store
+
+# Optional: OS-specific
+Thumbs.db
