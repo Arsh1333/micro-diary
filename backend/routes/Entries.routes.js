@@ -1,66 +1,23 @@
 import mongoose from "mongoose";
 import express from "express";
 import { Entries } from "../model/Entries.models.js";
+import {
+  addEntries,
+  deleteEntries,
+  getEntries,
+  updateEntries,
+} from "../controller/Entries.controllers.js";
 
 const entriesRouter = express.Router();
 
-entriesRouter.get("/getEntries", (req, res) => {
-  const entry = Entries.find().sort({ createdAt: -1 });
-  // console.log(entry);
-  entry
-    .then((result) => res.status(200).json(result))
-    .catch((err) => res.status(401).json(err));
-  console.log("Entries shown");
-});
+entriesRouter.get("/getEntries", getEntries);
 
-entriesRouter.post("/addEntries", (req, res) => {
-  const { content } = req.body;
+entriesRouter.post("/addEntries", addEntries);
 
-  const newEntries = new Entries({
-    content: content,
-  });
+entriesRouter.delete("/deleteEntries/:id", deleteEntries);
 
-  newEntries
-    .save()
-    .then((entry) => res.status(201).json(entry))
-    .catch((err) => res.status(400).json({ error: err.message }));
-});
+entriesRouter.put("/updateEntries/:id", updateEntries);
 
-entriesRouter.delete("/deleteEntries/:id", (req, res) => {
-  const { id } = req.params;
-  const deletedEntry = Entries.findOneAndDelete({ _id: id });
-  deletedEntry
-    .then((a) => {
-      console.log(a);
-      res.status(200).json(a);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json({ error: err.message });
-    });
-});
-
-entriesRouter.put("/updateEntries/:id", (req, res) => {
-  const { id } = req.params;
-  const changedEntry = Entries.findOneAndUpdate(
-    { _id: id },
-    { ...req.body },
-    {
-      new: true, // ✅ return the updated document
-      runValidators: true, // ✅ apply schema validation rules
-    }
-  );
-  changedEntry
-    .then((a) => {
-      console.log(a);
-      console.log("Updated entry:", a);
-      res.status(200).json(a);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json({ error: err.message });
-    });
-});
 // entriesRouter.put("/updateEntries/:id", async (req, res) => {
 //   const { id } = req.params;
 
