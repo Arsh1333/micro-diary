@@ -7,12 +7,13 @@ import {
   getEntries,
   updateEntries,
 } from "../controller/Entries.controllers.js";
+import { verifyToken } from "../middleware/authenticate.token.js";
 
 const entriesRouter = express.Router();
 
 entriesRouter.get("/getEntries", getEntries);
 
-entriesRouter.post("/addEntries", addEntries);
+entriesRouter.post("/addEntries", verifyToken, addEntries);
 
 entriesRouter.delete("/deleteEntries/:id", deleteEntries);
 

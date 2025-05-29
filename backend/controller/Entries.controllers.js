@@ -12,9 +12,11 @@ const getEntries = (req, res) => {
 
 const addEntries = (req, res) => {
   const { content } = req.body;
+  const userId = req.user._id;
 
   const newEntries = new Entries({
     content: content,
+    owner: userId,
   });
   newEntries
     .save()
