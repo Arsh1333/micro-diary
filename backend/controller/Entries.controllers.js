@@ -10,18 +10,38 @@ const getEntries = (req, res) => {
   console.log("Entries shown");
 };
 
-const addEntries = (req, res) => {
-  const { content } = req.body;
-  const userId = req.user._id;
+// const addEntries = (req, res) => {
+//   const { content } = req.body;
+//   const userId = req.user._id;
 
-  const newEntries = new Entries({
-    content: content,
-    owner: userId,
-  });
-  newEntries
-    .save()
-    .then((entry) => res.status(201).json(entry))
-    .catch((err) => res.status(400).json({ error: err.message }));
+//   const newEntries = new Entries({
+//     content: content,
+//     owner: userId,
+//   });
+//   const savedEntries = newEntries
+//     .save()
+//     .then((entry) => res.status(201).json(entry))
+//     .catch((err) => res.status(400).json({ error: err.message }));
+//   savedEntries.populate("owner", "userName email");
+// };
+const addEntries = async (req, res) => {
+  try {
+    const { content } = req.body;
+    const userId = req.user._id;
+
+    const newEntry = new Entries({
+      content,
+      owner: userId,
+    });
+
+    // Wait for it to save, then populate
+    const savedEntry = await newEntry.save();
+    await savedEntry.populate("owner", "userName email");
+
+    res.status(201).json(savedEntry);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
 
 const deleteEntries = (req, res) => {
