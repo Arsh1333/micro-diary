@@ -11,13 +11,13 @@ import { verifyToken } from "../middleware/authenticate.token.js";
 
 const entriesRouter = express.Router();
 
-entriesRouter.get("/getEntries", getEntries);
+entriesRouter.get("/getEntries", verifyToken, getEntries);
 
 entriesRouter.post("/addEntries", verifyToken, addEntries);
 
-entriesRouter.delete("/deleteEntries/:id", deleteEntries);
+entriesRouter.delete("/deleteEntries/:id", verifyToken, deleteEntries);
 
-entriesRouter.put("/updateEntries/:id", updateEntries);
+entriesRouter.put("/updateEntries/:id", verifyToken, updateEntries);
 
 // entriesRouter.put("/updateEntries/:id", async (req, res) => {
 //   const { id } = req.params;

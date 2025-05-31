@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Entries } from "../model/Entries.models.js";
 
 const getEntries = (req, res) => {
-  const entry = Entries.find().sort({ createdAt: -1 });
+  const entry = Entries.find({ owner: req.user._id });
   // console.log(entry);
   entry
     .then((result) => res.status(200).json(result))
