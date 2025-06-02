@@ -18,7 +18,6 @@ entriesRouter.post("/addEntries", verifyToken, addEntries);
 entriesRouter.delete("/deleteEntries/:id", verifyToken, deleteEntries);
 
 entriesRouter.put("/updateEntries/:id", verifyToken, updateEntries);
-
 // entriesRouter.put("/updateEntries/:id", async (req, res) => {
 //   const { id } = req.params;
 
