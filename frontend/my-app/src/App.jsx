@@ -1,23 +1,21 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home.jsx";
 import "./App.css";
+import Login from "./components/Login.jsx";
+import SignUp from "./components/SignUp.jsx";
+import Main from "./components/Main.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-        <h2 className="text-2xl font-bold text-gray-800">Tailwind Card</h2>
-        <p className="text-gray-600 mt-3">
-          This is a simple card layout built with Tailwind CSS.
-        </p>
-        <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-8">
-          Learn More
-        </button>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/signUp" element={<SignUp></SignUp>}></Route>
+        <Route path="/main" element={<Main></Main>}></Route>
+      </Routes>
+    </Router>
   );
 }
 
