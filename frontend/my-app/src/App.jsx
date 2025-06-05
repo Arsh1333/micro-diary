@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home.jsx";
-import "./App.css";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Main from "./components/Main.jsx";

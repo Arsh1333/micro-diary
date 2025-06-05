@@ -1,99 +1,85 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "flowbite-react";
+// import { Navbar, Button } from "flowbite-react";
+import {
+  Button,
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+} from "flowbite-react";
 
 function Home() {
   return (
     <div>
-      <nav class="bg-white border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a
-            href="https://flowbite.com/"
-            class="flex items-center space-x-3 rtl:space-x-reverse"
-          >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              class="h-8"
-              alt="Flowbite Logo"
-            />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
-            </span>
-          </a>
-          <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button
-              type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Get started
-            </button>
-            <button
-              data-collapse-toggle="navbar-cta"
-              type="button"
-              class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="navbar-cta"
-              aria-expanded="false"
-            >
-              <span class="sr-only">Open main menu</span>
-              <svg
-                class="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-          </div>
-          <div
-            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-cta"
-          >
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
-                  aria-current="page"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+      {/* <Navbar fluid>
+        <NavbarBrand href="/">
+          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
+            Micro-Diary
+          </span>
+        </NavbarBrand>
+        <div className="flex md:order-2">
+          <Button className="bg-blue-500 hover:bg-blue-300">Get started</Button>
+          <NavbarToggle className="ml-2" />
         </div>
-      </nav>
+        <NavbarCollapse>
+          <NavbarLink href="#" active>
+            Home
+          </NavbarLink>
+          <NavbarLink href="#">About</NavbarLink>
+          <NavbarLink href="#">Services</NavbarLink>
+          <NavbarLink href="#">Contact</NavbarLink>
+        </NavbarCollapse>
+      </Navbar> */}
+      <Navbar fluid className="!bg-amber-50">
+        {" "}
+        {/* Or bg-yellow-200, bg-yellow-300 etc. */}
+        <NavbarBrand href="/">
+          <span className="self-center whitespace-nowrap text-xl italic font-semibold font-display">
+            Micro-Diary
+          </span>
+        </NavbarBrand>
+        <div className="flex md:order-2">
+          {/* Note: Flowbite's Button component might have its own default styling.
+            You might need to override it more specifically or use custom classes if bg-blue-500
+            isn't taking full effect as expected. */}
+          <Button className="bg-green-500 hover:bg-green-300">
+            Get started
+          </Button>
+          <NavbarToggle className="ml-2" />
+        </div>
+        <NavbarCollapse>
+          <NavbarLink className=" hover:!text-amber-800 !text-black " href="#">
+            Home
+          </NavbarLink>
+          <NavbarLink className=" hover:!text-amber-800 !text-black" href="#">
+            About
+          </NavbarLink>
+          <NavbarLink className=" hover:!text-amber-800 !text-black" href="#">
+            Services
+          </NavbarLink>
+          <NavbarLink className=" hover:!text-amber-800 !text-black" href="#">
+            Contact
+          </NavbarLink>
+        </NavbarCollapse>
+      </Navbar>
+      <h1 className="font-display text-[30px] text-center mt-[80px]">
+        Your <span className="bg-blue-500"> Idea </span>, Your{" "}
+        <span className="bg-green-500">Diary</span> , Your Daily{" "}
+        <span className="bg-amber-500"> Win </span>
+      </h1>
+      <p className="text-xl mt-[40px] text-center">
+        Gain focus and making steady progress. Central hub for both thought and
+        action. Make your journey from desire to reality smooth and simple.The
+        essential space for every idea and accomplishment.
+      </p>
+      {/* <Button className="bg-green-500 hover:bg-green-300 ml-[150px] mt-4">
+        Get started
+      </Button> */}
+      <p className="text-xl mt-[40px] text-center underline cursor-pointer">
+        Already have an account?
+      </p>
       {/* <h1>Home</h1>
       <Button className="bg-red-500 hover:bg-red-600">Custom Button</Button> */}
     </div>
