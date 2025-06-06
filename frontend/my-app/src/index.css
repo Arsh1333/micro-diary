@@ -7,9 +7,6 @@
   --color-beige-200: #f7f3e7; /* Or specific shades */
   --color-beige-300: #f3edda;
   --font-display: "Oswald", "sans-serif";
-  font-family: {
-    oswald: [ "Oswald", "sans-serif"];
-  }
 }
 
 /* :root {
