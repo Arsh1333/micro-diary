@@ -1,13 +1,25 @@
 import mongoose from "mongoose";
 import { Entries } from "../model/Entries.models.js";
 
-const getEntries = (req, res) => {
-  const entry = Entries.find({ owner: req.user._id });
-  // console.log(entry);
-  entry
-    .then((result) => res.status(200).json(result))
-    .catch((err) => res.status(401).json(err));
-  console.log("Entries shown");
+// const getEntries = (req, res) => {
+//   const entry = Entries.find({ owner: req.user._id });
+//   // console.log(entry);
+//   entry
+//     .then((result) => res.status(200).json(result))
+//     .catch((err) => res.status(401).json(err));
+//   console.log("Entries shown");
+// };
+const getEntries = async (req, res) => {
+  try {
+    const entries = await Entries.find({ owner: req.user._id }).populate(
+      "owner",
+      "userName email"
+    );
+    res.status(200).json(entries);
+    console.log("Entries shown");
+  } catch (err) {
+    res.status(401).json({ error: err.message });
+  }
 };
 
 // const addEntries = (req, res) => {
