@@ -7,10 +7,15 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [pass, setPass] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (password !== pass) {
+      alert("Password enter doesn't match Re-typed password");
+      return 0;
+    }
     const response = await axios
       .post("http://localhost:5000/api/users/register", {
         email: email,
@@ -62,6 +67,18 @@ function SignUp() {
           <div>
             <div className="mb-2 block">
               <p className="text-white">Password</p>
+            </div>
+            <TextInput
+              id="password2"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              type="password"
+              required
+            />
+          </div>
+          <div>
+            <div className="mb-2 block">
+              <p className="text-white">Re-type your Password</p>
             </div>
             <TextInput
               id="password1"
