@@ -70,4 +70,24 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+const getUserList = async (req, res) => {
+  try {
+    const user = await User.find().select("-password");
+    res.status(201).json(user);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+export { register, login, getUserList, getMe };
