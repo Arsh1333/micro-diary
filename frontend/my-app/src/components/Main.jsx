@@ -73,6 +73,36 @@ function Main() {
       .catch((err) => console.log(err));
   }, []);
 
+  // const deleteEntry = async (postId) => {
+  //   const token = localStorage.getItem("token");
+  //   axios
+  //     .delete(`http://localhost:5000/api/reviews/deleteEntries/${postId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((res) => console.log("deleted", res))
+  //     .catch((err) => console.log(err));
+  // };
+  const deleteEntry = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/reviews/deleteEntries/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+
+      // alert("Entry deleted successfully!");
+    } catch (err) {
+      console.log("Error deleting:", err);
+    }
+  };
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h2 className="text-xl font-semibold text-gray-700 mb-6 text-center">
@@ -90,6 +120,18 @@ function Main() {
             <p className="text-sm text-gray-500 mt-2">
               Posted on {new Date(post.createdAt).toLocaleDateString()}
             </p>
+            <div className="flex">
+              <Button color="green" className="w-[80px]">
+                Update
+              </Button>
+              <Button
+                color="red"
+                onClick={() => deleteEntry(post._id)}
+                className="w-[80px] ml-2"
+              >
+                Delete
+              </Button>
+            </div>
           </Card>
         ))}
 
