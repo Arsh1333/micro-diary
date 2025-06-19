@@ -61,7 +61,7 @@ const deleteEntries = (req, res) => {
   const deletedEntry = Entries.findOneAndDelete({ _id: id });
   deletedEntry
     .then((a) => {
-      console.log(a);
+      // console.log(a);
       res.status(200).json(a);
     })
     .catch((err) => {
