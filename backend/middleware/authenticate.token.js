@@ -10,9 +10,9 @@ const verifyToken = (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     const verify = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Verified User:", verify);
+    // console.log("Verified User:", verify);
     req.user = verify;
-    console.log(req.user);
+    // console.log(req.user);
     next();
   } catch (err) {
     console.log(err);

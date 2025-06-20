@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDb from "./db/connectDb.js";
 import entriesRouter from "./routes/Entries.routes.js";
 import userRouter from "./routes/User.routes.js";
+import goalRouter from "./routes/Goals.routes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/reviews", entriesRouter);
 app.use("/api/users", userRouter);
+app.use("/api/goals", goalRouter);
 connectDb()
   .then(() => {
     app.listen(process.env.PORT, () => {

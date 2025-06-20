@@ -137,7 +137,7 @@ function Main() {
                 }}
                 className="w-[80px]"
               >
-                Update
+                Edit
               </Button>
               <Button
                 color="red"

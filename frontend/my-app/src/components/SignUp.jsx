@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Label, TextInput, Checkbox, Button } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function SignUp() {
@@ -93,6 +93,11 @@ function SignUp() {
             <Label htmlFor="remember">Remember me</Label>
           </div> */}
           <Button type="submit">Submit</Button>
+          <Link to="/login">
+            <p className="text-xl text-center text-white underline cursor-pointer">
+              Already have an account?
+            </p>
+          </Link>
         </form>
       </Card>
     </div>
