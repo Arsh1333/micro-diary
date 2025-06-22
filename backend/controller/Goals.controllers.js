@@ -39,9 +39,15 @@ const getAllGoals = async (req, res) => {
 
 const goalsDone = async (req, res) => {
   try {
-  } catch (error) {
-    console.log(error);
+    const goal = await Goals.findById(req.params.goalId);
+    if (!goal) return res.status(404).json({ message: "Goal not found" });
+
+    goal.isDone = !goal.isDone;
+    const updatedGoal = await goal.save();
+    res.status(200).json(updatedGoal);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-export { addGoals, getGoals, getAllGoals };
+export { addGoals, getGoals, getAllGoals, goalsDone };
