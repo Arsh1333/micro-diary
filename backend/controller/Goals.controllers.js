@@ -19,10 +19,10 @@ const getGoals = async (req, res) => {
     const { entryId } = req.params;
     const goals = await Goals.find({ entryId });
     res.status(200).json(goals);
-    console.log("Goals shown");
+    // console.log("Goals shown");
   } catch (error) {
     console.log(error);
-    res.status(401).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -34,6 +34,13 @@ const getAllGoals = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(401).json({ error: err.message });
+  }
+};
+
+const goalsDone = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
   }
 };
 

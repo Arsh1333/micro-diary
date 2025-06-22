@@ -16,7 +16,7 @@ const getEntries = async (req, res) => {
       "userName email"
     );
     res.status(200).json(entries);
-    console.log("Entries shown");
+    // console.log("Entries shown");
   } catch (err) {
     res.status(401).json({ error: err.message });
   }

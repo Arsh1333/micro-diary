@@ -20,7 +20,10 @@ function Login() {
         localStorage.setItem("token", res.data.user.token);
         navigate("/main");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
   };
 
   return (

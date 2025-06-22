@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import {
   Button,
   Modal,
@@ -18,6 +18,13 @@ function Main() {
   const [user, setUser] = useState(null);
   const [editingPostId, setEditingPostId] = useState(null);
   const [editContent, setEditContent] = useState("");
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [goal, setGoal] = useState("");
+  // const [enterGoal, setEnterGoal] = useState(false);
+  const [goalsByEntry, setGoalsByEntry] = useState({});
+  const [activeGoalEntryId, setActiveGoalEntryId] = useState(null);
+  const [showGoalsForEntryId, setShowGoalsForEntryId] = useState(null);
+  const [sortedPost, setSortedPost] = useState("latest");
 
   const getPost = async () => {
     const token = localStorage.getItem("token");
@@ -111,6 +118,49 @@ function Main() {
     }
   };
 
+  const addGoals = async (entryId) => {
+    try {
+      console.log("addGoals function triggered", entryId);
+      await axios.post("http://localhost:5000/api/goals/addGoals", {
+        goalInput: goal,
+        entryId: selectedEntry,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchGoals = async (entryId) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/goals/getGoals/${entryId}`
+      );
+      setGoalsByEntry((prev) => ({
+        ...prev,
+        [entryId]: res.data,
+      }));
+      setShowGoalsForEntryId(entryId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const toggleGoalCompletion = async (goalId) => {
+    try {
+      const updatedGoal = await axios.put(
+        `http://localhost:5000/api/goals/toggleDone/${goalId}`
+      );
+      setGoalsByEntry((prev) => {
+        const entryGoals = prev[showGoalsForEntryId] || [];
+        const updatedGoals = entryGoals.map((goal) =>
+          goal._id === goalId ? updatedGoal.data : goal
+        );
+        return { ...prev, [showGoalsForEntryId]: updatedGoals };
+      });
+    } catch (err) {
+      console.error("Failed to toggle goal:", err);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h2 className="text-xl font-semibold text-gray-700 mb-6 text-center">
@@ -146,6 +196,24 @@ function Main() {
               >
                 Delete
               </Button>
+
+              <Button
+                color="purple"
+                onClick={() => {
+                  setActiveGoalEntryId(post._id);
+                  setSelectedEntry(post._id);
+                }}
+                className="w-[80px]"
+              >
+                Add Goals
+              </Button>
+              <Button
+                color="yellow"
+                onClick={() => fetchGoals(post._id)}
+                className="w-[80px]"
+              >
+                View Goals
+              </Button>
             </div>
 
             {editingPostId === post._id && (
@@ -176,6 +244,80 @@ function Main() {
                     Cancel
                   </Button>
                 </div>
+              </div>
+            )}
+            {activeGoalEntryId === post._id && (
+              <div className="mt-4 space-y-2">
+                <input
+                  type="text"
+                  value={goal}
+                  onChange={(e) => setGoal(e.target.value)}
+                  className="w-full border border-gray-300 bg-amber-50 rounded px-3 py-2"
+                  placeholder="Enter your goal..."
+                />
+                <div className="flex gap-2">
+                  <Button
+                    color="blue"
+                    onClick={() => {
+                      addGoals(post._id);
+                      setActiveGoalEntryId(null);
+                      setGoal("");
+                    }}
+                    className="w-[80px]"
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    color="gray"
+                    onClick={() => setActiveGoalEntryId(null)}
+                    className="w-[80px]"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
+            {/* {goalsByEntry[post._id] &&
+              goalsByEntry[post._id].map((goal) => (
+                <p key={goal._id} className="text-sm text-green-300 ml-2">
+                  ✅ {goal.goalInput}
+                </p>
+              ))}
+               */}
+
+            {showGoalsForEntryId === post._id && goalsByEntry[post._id] && (
+              <div className="mt-3 space-y-2 bg-gray-100 p-2 rounded">
+                <p className="font-semibold">Goals:</p>
+
+                {goalsByEntry[post._id].length === 0 && (
+                  <p className="text-sm text-gray-500">No goals yet.</p>
+                )}
+
+                {goalsByEntry[post._id].map((goal) => (
+                  <div key={goal._id} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={goal.isDone}
+                      onChange={() => toggleGoalCompletion(goal._id)}
+                    />
+                    <span
+                      className={
+                        goal.isDone ? "line-through text-gray-500" : ""
+                      }
+                    >
+                      {goal.goalInput}
+                    </span>
+                  </div>
+                ))}
+
+                <Button
+                  color="gray"
+                  size="sm"
+                  className="mt-2"
+                  onClick={() => setShowGoalsForEntryId(null)}
+                >
+                  Cancel
+                </Button>
               </div>
             )}
           </Card>
