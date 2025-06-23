@@ -30,7 +30,7 @@ function Main() {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/reviews/getEntries",
+        "https://micro-diary.onrender.com/api/reviews/getEntries",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ function Main() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/users/getMe", {
+      .get("https://micro-diary.onrender.com/api/users/getMe", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +65,7 @@ function Main() {
     const token = localStorage.getItem("token");
     try {
       await axios.post(
-        "http://localhost:5000/api/reviews/addEntries",
+        "https://micro-diary.onrender.com/api/reviews/addEntries",
         { content: newEntry },
         {
           headers: {
@@ -85,7 +85,7 @@ function Main() {
     const token = localStorage.getItem("token");
     try {
       await axios.delete(
-        `http://localhost:5000/api/reviews/deleteEntries/${postId}`,
+        `https://micro-diary.onrender.com/api/reviews/deleteEntries/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ function Main() {
     const token = localStorage.getItem("token");
     try {
       await axios.put(
-        `http://localhost:5000/api/reviews/updateEntries/${postId}`,
+        `https://micro-diary.onrender.com/api/reviews/updateEntries/${postId}`,
         { content: editContent },
         {
           headers: {
@@ -121,7 +121,7 @@ function Main() {
   const addGoals = async (entryId) => {
     try {
       console.log("addGoals function triggered", entryId);
-      await axios.post("http://localhost:5000/api/goals/addGoals", {
+      await axios.post("https://micro-diary.onrender.com/api/goals/addGoals", {
         goalInput: goal,
         entryId: selectedEntry,
       });
@@ -133,7 +133,7 @@ function Main() {
   const fetchGoals = async (entryId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/goals/getGoals/${entryId}`
+        `https://micro-diary.onrender.com/api/goals/getGoals/${entryId}`
       );
       setGoalsByEntry((prev) => ({
         ...prev,
@@ -147,7 +147,7 @@ function Main() {
   const toggleGoalCompletion = async (goalId) => {
     try {
       const updatedGoal = await axios.put(
-        `http://localhost:5000/api/goals/toggleDone/${goalId}`
+        `https://micro-diary.onrender.com/api/goals/toggleDone/${goalId}`
       );
       setGoalsByEntry((prev) => {
         const entryGoals = prev[showGoalsForEntryId] || [];

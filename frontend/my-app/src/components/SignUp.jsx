@@ -17,7 +17,7 @@ function SignUp() {
       return 0;
     }
     const response = await axios
-      .post("http://localhost:5000/api/users/register", {
+      .post("https://micro-diary.onrender.com/api/users/register", {
         email: email,
         userName: userName,
         password: password,

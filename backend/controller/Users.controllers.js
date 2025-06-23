@@ -23,7 +23,7 @@ const register = async (req, res) => {
     const savedUser = await newUser.save();
     const token = await jwt.sign(
       { _id: savedUser.id },
-      process.env.JWT_secret,
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
     res.status(201).json({
